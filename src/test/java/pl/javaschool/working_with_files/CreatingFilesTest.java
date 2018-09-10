@@ -2,6 +2,7 @@ package pl.javaschool.working_with_files;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,5 +46,28 @@ public class CreatingFilesTest {
         assertFalse(Files.isRegularFile(path));
         assertTrue(Files.isDirectory(path));
         Files.deleteIfExists(path);
+    }
+
+    @Test
+    public void givenNonExistingDirectoryPath_shouldCreateDirectoriesRecursively() throws IOException {
+        //given
+        String dirName = "test_dir";
+        Path dirPath = Paths.get(BASE_DIR + "/" + dirName);
+        Path subDirPath = dirPath.resolve("sub_directory");
+        assertFalse(Files.exists(dirPath));
+        assertFalse(Files.exists(subDirPath));
+        //when
+        Files.createDirectories(subDirPath);
+        //then
+        assertTrue(Files.exists(dirPath));
+        assertTrue(Files.exists(subDirPath));
+        deleteRecursively(dirPath);
+    }
+
+    private void deleteRecursively(Path dirPath) throws IOException {
+        Files.walk(dirPath)
+                .map(Path::toFile)
+                .sorted((o1, o2) -> -o1.compareTo(o2))
+                .forEach(File::delete);
     }
 }

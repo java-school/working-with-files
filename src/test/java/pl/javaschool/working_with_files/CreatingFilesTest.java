@@ -64,6 +64,14 @@ public class CreatingFilesTest {
         deleteRecursively(dirPath);
     }
 
+    @Test
+    public void givenNoFilePath_shouldCreateTempFileInDefaultLocation() throws IOException {
+        //when
+        Path path = Files.createTempFile(null, null);
+        //then
+        assertTrue(Files.exists(path));
+    }
+
     private void deleteRecursively(Path dirPath) throws IOException {
         Files.walk(dirPath)
                 .map(Path::toFile)

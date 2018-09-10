@@ -1,5 +1,6 @@
 package pl.javaschool.working_with_files;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,7 +8,7 @@ import java.nio.file.Paths;
 public class CheckFileOrFolder {
     private static String BASE_DIR = System.getProperty("user.dir") + "/temp";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         checkIfFileOrFolderExists();
 
         checkIfFileOrFolderDoesNotExist();
@@ -19,6 +20,8 @@ public class CheckFileOrFolder {
         checkIfFileIsWritable();
 
         checkIfFileIsExecutable();
+
+        checkIfTheSameFile();
     }
 
     private static void checkIfFileOrFolderExists() {
@@ -55,5 +58,16 @@ public class CheckFileOrFolder {
         Path path = Paths.get(BASE_DIR);
 
         System.out.println(String.format("File or folder: [%s] is executable: %s", path, Files.isExecutable(path)));
+    }
+
+    private static void checkIfTheSameFile() throws IOException {
+        Path firstPath = Paths.get(BASE_DIR);
+        Path secondPath = Paths.get(BASE_DIR);
+
+        System.out.println(String.format("File or folder: [%s] and file or folder: [%s] is the same: %s",
+                firstPath,
+                secondPath,
+                Files.isSameFile(firstPath, secondPath)
+        ));
     }
 }

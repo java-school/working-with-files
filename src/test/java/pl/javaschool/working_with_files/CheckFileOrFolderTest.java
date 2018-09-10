@@ -2,6 +2,7 @@ package pl.javaschool.working_with_files;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,5 +60,14 @@ public class CheckFileOrFolderTest {
         Path path = Paths.get(BASE_DIR);
         //then
         assertTrue(Files.isExecutable(path));
+    }
+
+    @Test
+    public void givenSameFilePaths_whenCheckedIfSameFile_shouldReturnTrue() throws IOException {
+        //given
+        Path firstPath = Paths.get(BASE_DIR);
+        Path secondPath = Paths.get(BASE_DIR);
+        //then
+        assertTrue(Files.isSameFile(firstPath, secondPath));
     }
 }

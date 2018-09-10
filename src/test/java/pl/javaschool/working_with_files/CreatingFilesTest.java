@@ -25,4 +25,25 @@ public class CreatingFilesTest {
         assertTrue(Files.exists(path));
         Files.deleteIfExists(path);
     }
+
+    @Test
+    public void givenNonExistingDirectoryPath_shouldCreateDirectory() throws IOException {
+        //given
+        String dirName = "test_dir";
+        Path path = Paths.get(BASE_DIR + "/" + dirName);
+
+//        If we would like to create directory in non existing directory the 'createDirectory()' method will throw Exception
+//        In such case we should use 'createDirectories()' method - see next example
+
+//        path = path.resolve("sub_directory"); //uncomment this to see Test failing
+
+        assertFalse(Files.exists(path));
+        //when
+        Files.createDirectory(path);
+        //then
+        assertTrue(Files.exists(path));
+        assertFalse(Files.isRegularFile(path));
+        assertTrue(Files.isDirectory(path));
+        Files.deleteIfExists(path);
+    }
 }

@@ -52,4 +52,12 @@ public class CheckFileOrFolderTest {
         //then
         assertTrue(Files.isWritable(path));
     }
+
+    @Test
+    public void givenExistingFile_whenCheckedIfIsExecutable_shouldReturnTrue() {
+        //given
+        Path path = Paths.get(BASE_DIR);
+        //then
+        assertTrue(Files.isExecutable(path));
+    }
 }

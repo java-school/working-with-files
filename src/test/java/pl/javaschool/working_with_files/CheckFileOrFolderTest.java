@@ -44,4 +44,12 @@ public class CheckFileOrFolderTest {
         //then
         assertTrue(Files.isReadable(path));
     }
+
+    @Test
+    public void givenExistingFile_whenCheckedIfIsWritable_shouldReturnTrue() {
+        //given
+        Path path = Paths.get(BASE_DIR);
+        //then
+        assertTrue(Files.isWritable(path));
+    }
 }

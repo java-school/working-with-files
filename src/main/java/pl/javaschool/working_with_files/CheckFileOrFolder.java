@@ -15,6 +15,8 @@ public class CheckFileOrFolder {
         checkIfFileIsRegularFile();
 
         checkIfFileIsReadable();
+
+        checkIfFileIsWritable();
     }
 
     private static void checkIfFileOrFolderExists() {
@@ -39,5 +41,11 @@ public class CheckFileOrFolder {
         Path path = Paths.get(BASE_DIR);
 
         System.out.println(String.format("File or folder: [%s] is readable: %s", path, Files.isReadable(path)));
+    }
+
+    private static void checkIfFileIsWritable() {
+        Path path = Paths.get(BASE_DIR);
+
+        System.out.println(String.format("File or folder: [%s] is writable: %s", path, Files.isWritable(path)));
     }
 }

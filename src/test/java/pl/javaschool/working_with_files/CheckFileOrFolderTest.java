@@ -18,4 +18,13 @@ public class CheckFileOrFolderTest {
         //then
         assertTrue(Files.exists(path));
     }
+
+    @Test
+    public void givenNonExistingFile_whenCheckedIfNotExist_shouldReturnTrue() {
+        //given
+        Path path = Paths.get(BASE_DIR + "/non_existing.txt");
+        //then
+        assertTrue(Files.notExists(path));
+
+    }
 }

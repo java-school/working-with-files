@@ -9,11 +9,19 @@ public class CheckFileOrFolder {
 
     public static void main(String[] args) {
         checkIfFileOrFolderExists();
+
+        checkIfFileOrFolderDoesNotExist();
     }
 
     private static void checkIfFileOrFolderExists() {
         Path path = Paths.get(BASE_DIR);
 
-        System.out.println("File or folder exists: " + Files.exists(path));
+        System.out.println(String.format("File or folder: [%s] exists: %s", path, Files.exists(path)));
+    }
+
+    private static void checkIfFileOrFolderDoesNotExist() {
+        Path path = Paths.get(BASE_DIR + "/non_existing.txt");
+
+        System.out.println(String.format("File or folder: [%s] does not exist: %s", path, Files.notExists(path)));
     }
 }

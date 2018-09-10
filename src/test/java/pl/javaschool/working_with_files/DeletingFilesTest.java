@@ -25,4 +25,13 @@ public class DeletingFilesTest {
         //then
         assertFalse(Files.exists(path));
     }
+
+    @Test(expected = IOException.class)
+    public void givenNonExistingFile_whenDelete_shouldThrowException() throws IOException {
+        //given
+        Path path = Paths.get(BASE_DIR + "/non_existing_file.txt");
+        assertFalse(Files.exists(path));
+        //when
+        Files.delete(path);
+    }
 }

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class CheckFileOrFolderTest {
@@ -26,5 +27,13 @@ public class CheckFileOrFolderTest {
         //then
         assertTrue(Files.notExists(path));
 
+    }
+
+    @Test
+    public void givenDirectory_whenCheckedIfIsRegularFile_shouldReturnFalse() {
+        //given
+        Path path = Paths.get(BASE_DIR);
+        //then
+        assertFalse(Files.isRegularFile(path));
     }
 }

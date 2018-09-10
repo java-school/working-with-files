@@ -11,6 +11,8 @@ public class CheckFileOrFolder {
         checkIfFileOrFolderExists();
 
         checkIfFileOrFolderDoesNotExist();
+
+        checkIfFileIsRegularFile();
     }
 
     private static void checkIfFileOrFolderExists() {
@@ -23,5 +25,11 @@ public class CheckFileOrFolder {
         Path path = Paths.get(BASE_DIR + "/non_existing.txt");
 
         System.out.println(String.format("File or folder: [%s] does not exist: %s", path, Files.notExists(path)));
+    }
+
+    private static void checkIfFileIsRegularFile() {
+        Path path = Paths.get(BASE_DIR);
+
+        System.out.println(String.format("File or folder: [%s] is regular file (regular = not a directory): %s", path, Files.isRegularFile(path)));
     }
 }

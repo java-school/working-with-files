@@ -36,4 +36,12 @@ public class CheckFileOrFolderTest {
         //then
         assertFalse(Files.isRegularFile(path));
     }
+
+    @Test
+    public void givenExistingFile_whenCheckedIfIsReadable_shouldReturnTrue() {
+        //given
+        Path path = Paths.get(BASE_DIR);
+        //then
+        assertTrue(Files.isReadable(path));
+    }
 }

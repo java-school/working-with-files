@@ -13,6 +13,8 @@ public class CheckFileOrFolder {
         checkIfFileOrFolderDoesNotExist();
 
         checkIfFileIsRegularFile();
+
+        checkIfFileIsReadable();
     }
 
     private static void checkIfFileOrFolderExists() {
@@ -31,5 +33,11 @@ public class CheckFileOrFolder {
         Path path = Paths.get(BASE_DIR);
 
         System.out.println(String.format("File or folder: [%s] is regular file (regular = not a directory): %s", path, Files.isRegularFile(path)));
+    }
+
+    private static void checkIfFileIsReadable() {
+        Path path = Paths.get(BASE_DIR);
+
+        System.out.println(String.format("File or folder: [%s] is readable: %s", path, Files.isReadable(path)));
     }
 }

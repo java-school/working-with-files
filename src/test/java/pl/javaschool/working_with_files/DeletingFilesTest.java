@@ -34,4 +34,13 @@ public class DeletingFilesTest {
         //when
         Files.delete(path);
     }
+
+    @Test
+    public void givenNonExistingFile_whenDeleteIfExists_shouldNotFail() throws IOException {
+        //given
+        Path path = Paths.get(BASE_DIR + "/non_existing_file.txt");
+        assertFalse(Files.exists(path));
+        //when
+        Files.deleteIfExists(path);
+    }
 }

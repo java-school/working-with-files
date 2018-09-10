@@ -94,6 +94,17 @@ public class CreatingFilesTest {
         assertTrue(Files.exists(path));
     }
 
+    @Test
+    public void givenPathAndPrefix_shouldCreateSpecificTempDir() throws IOException {
+        //given
+        String prefix = "temp_dir";
+        Path dirPath = Paths.get(BASE_DIR + "/");
+        //when
+        Path path = Files.createTempDirectory(dirPath, prefix);
+        //then
+        assertTrue(Files.exists(path));
+    }
+
     private void deleteRecursively(Path dirPath) throws IOException {
         Files.walk(dirPath)
                 .map(Path::toFile)

@@ -72,6 +72,16 @@ public class CreatingFilesTest {
         assertTrue(Files.exists(path));
     }
 
+    @Test
+    public void givenPath_shouldCreateTempFileInSpecifiedLocation() throws IOException {
+        //given
+        Path dirPath = Paths.get(BASE_DIR + "/");
+        //when
+        Path path = Files.createTempFile(dirPath, null, null);
+        //then
+        assertTrue(Files.exists(path));
+    }
+
     private void deleteRecursively(Path dirPath) throws IOException {
         Files.walk(dirPath)
                 .map(Path::toFile)

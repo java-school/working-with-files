@@ -82,6 +82,18 @@ public class CreatingFilesTest {
         assertTrue(Files.exists(path));
     }
 
+    @Test
+    public void givenPathPrefixAndSuffix_shouldCreateTempFile() throws IOException {
+        //given
+        String prefix = "file_";
+        String suffix = ".txt";
+        Path dirPath = Paths.get(BASE_DIR + "/");
+        //when
+        Path path = Files.createTempFile(dirPath, prefix, suffix);
+        //then
+        assertTrue(Files.exists(path));
+    }
+
     private void deleteRecursively(Path dirPath) throws IOException {
         Files.walk(dirPath)
                 .map(Path::toFile)

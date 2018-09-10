@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -27,7 +29,7 @@ public class DeletingFilesTest {
         assertFalse(Files.exists(path));
     }
 
-    @Test(expected = IOException.class)
+    @Test(expected = IOException.class)//todo Refactor including AssertJ assertions in all classes
     public void givenNonExistingFile_whenDelete_shouldThrowException() throws IOException {
         //given
         Path path = Paths.get(BASE_DIR + "/non_existing_file.txt");
@@ -45,7 +47,7 @@ public class DeletingFilesTest {
         Files.deleteIfExists(path);
     }
 
-    @Test(expected = DirectoryNotEmptyException.class)
+    @Test
     public void givenExistingNonEmptyDirectory_whenDelete_shouldThrowException() throws IOException {
         //given
         Path dirPath = Files.createTempDirectory(Paths.get(BASE_DIR), null);
@@ -54,8 +56,9 @@ public class DeletingFilesTest {
         Path filePath = dirPath.resolve("file.txt");
         Files.createFile(filePath);
         //when
-        Files.delete(dirPath); //this throws Exception
+        Throwable throwable = catchThrowable(() -> Files.delete(dirPath));
         //then
-//      How to check if directory still exists?
+        assertThat(throwable).isInstanceOf(DirectoryNotEmptyException.class);
+        assertThat(Files.exists(dirPath)).isTrue();
     }
 }

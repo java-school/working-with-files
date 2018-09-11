@@ -8,8 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreatingFilesTest {
     private static String BASE_DIR = System.getProperty("user.dir") + "/temp";
@@ -19,11 +18,12 @@ public class CreatingFilesTest {
         //given
         String fileName = "test_file.txt";
         Path path = Paths.get(BASE_DIR + "/" + fileName);
-        assertFalse(Files.exists(path));
+        assertThat(Files.exists(path)).isFalse();
         //when
         Files.createFile(path);
         //then
-        assertTrue(Files.exists(path));
+        assertThat(Files.exists(path)).isTrue();
+
         Files.deleteIfExists(path);
     }
 
@@ -38,13 +38,15 @@ public class CreatingFilesTest {
 
 //        path = path.resolve("sub_directory"); //uncomment this to see Test failing
 
-        assertFalse(Files.exists(path));
+        assertThat(Files.exists(path)).isFalse();
+
         //when
         Files.createDirectory(path);
+
         //then
-        assertTrue(Files.exists(path));
-        assertFalse(Files.isRegularFile(path));
-        assertTrue(Files.isDirectory(path));
+        assertThat(Files.exists(path)).isTrue();
+        assertThat(Files.isRegularFile(path)).isFalse();
+        assertThat(Files.isDirectory(path)).isTrue();
         Files.deleteIfExists(path);
     }
 
@@ -54,13 +56,13 @@ public class CreatingFilesTest {
         String dirName = "test_dir";
         Path dirPath = Paths.get(BASE_DIR + "/" + dirName);
         Path subDirPath = dirPath.resolve("sub_directory");
-        assertFalse(Files.exists(dirPath));
-        assertFalse(Files.exists(subDirPath));
+        assertThat(Files.exists(dirPath)).isFalse();
+        assertThat(Files.exists(subDirPath)).isFalse();
         //when
         Files.createDirectories(subDirPath);
         //then
-        assertTrue(Files.exists(dirPath));
-        assertTrue(Files.exists(subDirPath));
+        assertThat(Files.exists(dirPath)).isTrue();
+        assertThat(Files.exists(subDirPath)).isTrue();
         deleteRecursively(dirPath);
     }
 
@@ -69,7 +71,7 @@ public class CreatingFilesTest {
         //when
         Path path = Files.createTempFile(null, null);
         //then
-        assertTrue(Files.exists(path));
+        assertThat(Files.exists(path)).isTrue();
     }
 
     @Test
@@ -79,7 +81,7 @@ public class CreatingFilesTest {
         //when
         Path path = Files.createTempFile(dirPath, null, null);
         //then
-        assertTrue(Files.exists(path));
+        assertThat(Files.exists(path)).isTrue();
     }
 
     @Test
@@ -91,7 +93,7 @@ public class CreatingFilesTest {
         //when
         Path path = Files.createTempFile(dirPath, prefix, suffix);
         //then
-        assertTrue(Files.exists(path));
+        assertThat(Files.exists(path)).isTrue();
     }
 
     @Test
@@ -102,7 +104,7 @@ public class CreatingFilesTest {
         //when
         Path path = Files.createTempDirectory(dirPath, prefix);
         //then
-        assertTrue(Files.exists(path));
+        assertThat(Files.exists(path)).isTrue();
     }
 
     private void deleteRecursively(Path dirPath) throws IOException {

@@ -7,8 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckFileOrFolderTest {
     private static String BASE_DIR = System.getProperty("user.dir") + "/temp";
@@ -18,7 +17,7 @@ public class CheckFileOrFolderTest {
         //given
         Path path = Paths.get(BASE_DIR);
         //then
-        assertTrue(Files.exists(path));
+        assertThat(Files.exists(path)).isTrue();
     }
 
     @Test
@@ -26,7 +25,7 @@ public class CheckFileOrFolderTest {
         //given
         Path path = Paths.get(BASE_DIR + "/non_existing.txt");
         //then
-        assertTrue(Files.notExists(path));
+        assertThat(Files.notExists(path)).isTrue();
 
     }
 
@@ -35,7 +34,7 @@ public class CheckFileOrFolderTest {
         //given
         Path path = Paths.get(BASE_DIR);
         //then
-        assertFalse(Files.isRegularFile(path));
+        assertThat(Files.isRegularFile(path)).isFalse();
     }
 
     @Test
@@ -43,7 +42,7 @@ public class CheckFileOrFolderTest {
         //given
         Path path = Paths.get(BASE_DIR);
         //then
-        assertTrue(Files.isReadable(path));
+        assertThat(Files.isReadable(path)).isTrue();
     }
 
     @Test
@@ -51,7 +50,7 @@ public class CheckFileOrFolderTest {
         //given
         Path path = Paths.get(BASE_DIR);
         //then
-        assertTrue(Files.isWritable(path));
+        assertThat(Files.isWritable(path)).isTrue();
     }
 
     @Test
@@ -59,7 +58,7 @@ public class CheckFileOrFolderTest {
         //given
         Path path = Paths.get(BASE_DIR);
         //then
-        assertTrue(Files.isExecutable(path));
+        assertThat(Files.isExecutable(path)).isTrue();
     }
 
     @Test
@@ -68,6 +67,6 @@ public class CheckFileOrFolderTest {
         Path firstPath = Paths.get(BASE_DIR);
         Path secondPath = Paths.get(BASE_DIR);
         //then
-        assertTrue(Files.isSameFile(firstPath, secondPath));
+        assertThat(Files.isSameFile(firstPath, secondPath)).isTrue();
     }
 }

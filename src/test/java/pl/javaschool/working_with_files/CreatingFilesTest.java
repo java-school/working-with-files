@@ -1,8 +1,8 @@
 package pl.javaschool.working_with_files;
 
 import org.junit.Test;
+import pl.javaschool.working_with_files.utils.TestUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -63,7 +63,7 @@ public class CreatingFilesTest {
         //then
         assertThat(Files.exists(dirPath)).isTrue();
         assertThat(Files.exists(subDirPath)).isTrue();
-        deleteRecursively(dirPath);
+        TestUtils.deleteRecursively(dirPath);
     }
 
     @Test
@@ -105,12 +105,5 @@ public class CreatingFilesTest {
         Path path = Files.createTempDirectory(dirPath, prefix);
         //then
         assertThat(Files.exists(path)).isTrue();
-    }
-
-    private void deleteRecursively(Path dirPath) throws IOException {
-        Files.walk(dirPath)
-                .map(Path::toFile)
-                .sorted((o1, o2) -> -o1.compareTo(o2))
-                .forEach(File::delete);
     }
 }

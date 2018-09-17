@@ -60,6 +60,35 @@ public class CopyingAndMovingFilesTest {
         assertThat(Files.exists(destinationFile)).isTrue();
     }
 
+    @Test
+    public void givenExistingSourceFile_whenMove_thenSuccessful() throws IOException {
+        //given
+        Path sourceFile = givenSourceFile();
+        Path destinationFile = givenDestinationFilePath();
+
+        //when
+        Files.move(sourceFile, destinationFile);
+
+        //then
+        assertThat(Files.exists(sourceFile)).isFalse();
+        assertThat(Files.exists(destinationFile)).isTrue();
+    }
+
+    @Test
+    public void givenExistingSourceAndDestinationFiles_whenMoveWithReplaceFlag_thenSuccessful() throws IOException {
+        //given
+        Path sourceFile = givenSourceFile();
+        Path destinationFile = givenDestinationFilePath();
+
+        Files.createFile(destinationFile);
+        //when
+        Files.move(sourceFile, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+
+        //then
+        assertThat(Files.exists(sourceFile)).isFalse();
+        assertThat(Files.exists(destinationFile)).isTrue();
+    }
+
     private Path givenSourceFile() throws IOException {
         Path sourceDirectory = Paths.get(BASE_DIR + "/sourceDir");
         Files.createDirectory(sourceDirectory);

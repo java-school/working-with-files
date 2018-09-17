@@ -1,6 +1,9 @@
 package pl.javaschool.working_with_files;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import pl.javaschool.working_with_files.utils.TestUtils;
 
 import java.io.IOException;
 import java.nio.file.DirectoryNotEmptyException;
@@ -13,6 +16,17 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class DeletingFilesTest {
     private static String BASE_DIR = System.getProperty("user.dir") + "/temp";
+    private static final Path BASE_PATH = Paths.get(BASE_DIR);
+
+    @Before
+    public void setUp() throws Exception {
+        Files.createDirectories(BASE_PATH);
+    }
+
+    @After
+    public void tearDown() {
+        TestUtils.deleteRecursively(BASE_PATH);
+    }
 
     @Test
     public void givenExistingFile_shouldDelete() throws IOException {
